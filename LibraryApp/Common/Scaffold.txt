@@ -1,0 +1,3 @@
+dotnet ef dbcontext scaffold "Server=(local);Database=Library;Integrated security=True;Encrypt=False;TrustServerCertificate=False;" Microsoft.EntityFrameworkCore.SqlServer --no-onconfiguring -o Data/Entities --context-dir Data -c AppDbContext -f
+
+dotnet tool update --global dotnet-ef --version 7.0.7
