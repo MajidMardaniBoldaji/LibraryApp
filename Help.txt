@@ -1,0 +1,12 @@
+1-Create Database in Sql
+2-Create asp.net core webapi proect
+3-Install Entity framework on project
+4-Scaffholding SQL tables in the project
+5-Create project Dbcontect
+6-Dependency injection Db ConnectionString
+7-Create Service Class
+8-Create Api's (read , insert,Update,Delete)
+9-Use Action Methods
+10-Use DTO's
+11-Use Validation and Custom Validation
+12-Use Mvc or Razor Or Blazor For Complete Project
