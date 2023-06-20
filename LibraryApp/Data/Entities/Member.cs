@@ -20,4 +20,6 @@ public partial class Member
     public DateTime AddDate { get; set; }
 
     public DateTime? UpdateDate { get; set; }
+
+    public virtual ICollection<BookBorrow> BookBorrows { get; set; } = new List<BookBorrow>();
 }

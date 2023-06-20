@@ -1,0 +1,10 @@
+Note1:
+In scaffold you must attention to use '--no-onconfiguring' for dont write SqlConnection in Dbcontext File unless you must delete conectionString in dbContext File after Scaffolding
+
+Note 2:
+In DI(Dependency Injection DbContext)
+for Auto Creating each project Service in Program.cs File you Must Write this Code:
+	// Add all Scoped AppServices
+	var appServices = typeof(Program).Assembly.GetTypes().Where(s => s.Name.EndsWith("Service") && s.IsInterface == false).ToList();
+	foreach (var appService in appServices)
+    builder.Services.Add(new ServiceDescriptor(appService, appService, ServiceLifetime.Scoped));

@@ -20,6 +20,8 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Member> Members { get; set; }
 
+    public virtual DbSet<User> Users { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Book>(entity =>
@@ -32,17 +34,35 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Author).HasMaxLength(50);
             entity.Property(e => e.Name).HasMaxLength(150);
             entity.Property(e => e.UpdateDate).HasPrecision(2);
+
+            entity.HasOne(d => d.BookCategory).WithMany(p => p.Books)
+                .HasForeignKey(d => d.BookCategoryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Book_BookCategory");
         });
 
         modelBuilder.Entity<BookBorrow>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("BookBorrow");
+            entity.ToTable("BookBorrow");
 
             entity.Property(e => e.BorrowDate).HasPrecision(2);
             entity.Property(e => e.Description).HasMaxLength(400);
             entity.Property(e => e.ReturnDate).HasPrecision(2);
+
+            entity.HasOne(d => d.Book).WithMany(p => p.BookBorrows)
+                .HasForeignKey(d => d.BookId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_BookBorrow_Book");
+
+            entity.HasOne(d => d.Member).WithMany(p => p.BookBorrows)
+                .HasForeignKey(d => d.MemberId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_BookBorrow_Member");
+
+            entity.HasOne(d => d.User).WithMany(p => p.BookBorrows)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_BookBorrow_User");
         });
 
         modelBuilder.Entity<BookCategory>(entity =>
@@ -70,6 +90,18 @@ public partial class AppDbContext : DbContext
                 .IsUnicode(false)
                 .IsFixedLength();
             entity.Property(e => e.UpdateDate).HasPrecision(2);
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.ToTable("User");
+
+            entity.Property(e => e.Name).HasMaxLength(150);
+            entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.Status)
+                .IsRequired()
+                .HasDefaultValueSql("((1))");
+            entity.Property(e => e.UserName).HasMaxLength(150);
         });
 
         OnModelCreatingPartial(modelBuilder);
