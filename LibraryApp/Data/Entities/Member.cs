@@ -9,7 +9,7 @@ public partial class Member
 
     public string FullName { get; set; } = null!;
 
-    public DateTime BirthDate { get; set; }
+    public DateTime? BirthDate { get; set; }
 
     public string PhoneNumber { get; set; } = null!;
 
@@ -17,7 +17,7 @@ public partial class Member
 
     public string? Email { get; set; }
 
-    public DateTime AddDate { get; set; }
+    public DateTime? AddDate { get; set; }
 
     public DateTime? UpdateDate { get; set; }
 

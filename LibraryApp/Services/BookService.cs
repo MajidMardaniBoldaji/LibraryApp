@@ -2,6 +2,7 @@
 using LibraryApp.Data;
 using LibraryApp.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryApp.Services
 {
@@ -13,14 +14,27 @@ namespace LibraryApp.Services
         public BookService(AppDbContext appDbContext)
         {
             _db = appDbContext;
-
         }
 
         [HttpGet]
-        public List<Book> showBooks()
+        public async Task<List<Book>> GetAll()
         {
-            return _db.Books.ToList();
+            return await _db.Books.ToListAsync();
         }
+
+        [HttpPost]
+        public async Task<int> Add(AddBookVm vm)
+        {
+            var newBook = new Book();
+            newBook.Name = vm.Name;
+            newBook.Author = vm.Author;
+            newBook.Count = vm.Count;
+            newBook.BookCategoryId = 1;
+           // newBook.AddDate = DateTime.Now;
+            _db.Books.Add(newBook);
+            return await _db.SaveChangesAsync();
+        }
+
 
     }
 }

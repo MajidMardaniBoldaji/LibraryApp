@@ -14,14 +14,17 @@ namespace LibraryApp.Controllers
         {
             _bookService = bookService; 
         }
-        //public BookController() { } 
-        //public  IActionResult AddBook(string name,int count,string Author,int BookCategoryId, DateTime AddDate,DateTime UpdateDate)
-        //{
-        //}
+
         [HttpGet]
-        public IActionResult showBooks()
+        public   IActionResult GetAll()
         {
-            return Ok(_bookService.showBooks());
+            return  Ok(_bookService.GetAll());
+        }
+
+        [HttpPost]
+        public IActionResult Add(AddBookVm vm)
+        {
+            return Ok(_bookService.Add(vm));
         }
     }
 }

@@ -15,7 +15,7 @@ public partial class Book
 
     public int BookCategoryId { get; set; }
 
-    public DateTime AddDate { get; set; }
+    public DateTime? AddDate { get; set; }
 
     public DateTime? UpdateDate { get; set; }
 
