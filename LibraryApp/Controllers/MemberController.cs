@@ -19,10 +19,16 @@ namespace LibraryApp.Controllers
             return Ok(_MemberService.GetAll());
         }
         [HttpPost]
-        public IActionResult Add(AddMemberVm memberVm)
+        public async Task<IActionResult> Add (AddMemberVm memberVm)
         {
-            return Ok(_MemberService.Add(memberVm));    
+            return Ok (await(_MemberService.Add(memberVm)));    
 
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Remove(int Id)
+        {
+            return Ok(await (_MemberService.Remove(Id)));
         }
     }
 }
