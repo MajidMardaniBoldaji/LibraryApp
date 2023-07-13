@@ -30,5 +30,11 @@ namespace LibraryApp.Controllers
         {
             return Ok(await (_MemberService.UpdateName(Id,fullName)));
         }
+
+        [HttpDelete]    
+        public async Task<IActionResult> Remove(int Id)
+        {
+            return Ok(await (_MemberService.Remove(Id)));
+        }
     }
 }
