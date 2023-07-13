@@ -34,7 +34,27 @@ namespace LibraryApp.Services
             _db.Books.Add(newBook);
             return await _db.SaveChangesAsync();
         }
+        [HttpDelete]
+        public async Task<int> Remove(int Id)
+        {
+            var book = _db.Books.Where(c => c.Id == Id).FirstOrDefault();
+            if (book != null)
+            {
+                _db.Books.Remove(book);
+                return await _db.SaveChangesAsync();
+            }
+            return 0;
+        }
 
-
+        public async Task<int> UpdateName(int Id, string name)
+        {
+            var bookItem = await _db.Books.FirstOrDefaultAsync(m => m.Id == Id);
+            if (bookItem != null)
+            {
+                bookItem.Name = name;
+                return await _db.SaveChangesAsync();
+            }
+            return 0;
+        }
     }
 }

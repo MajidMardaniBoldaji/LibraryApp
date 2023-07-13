@@ -26,5 +26,16 @@ namespace LibraryApp.Controllers
         {
             return Ok(_bookService.Add(vm));
         }
+        [HttpDelete]
+        public async Task< IActionResult> Delete(int id) 
+        {
+            return Ok(await _bookService.Remove(id));
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(int Id, string Name)
+        {
+            return Ok(await (_bookService.UpdateName(Id, Name)));
+        }
     }
 }

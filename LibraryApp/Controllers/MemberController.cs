@@ -25,10 +25,10 @@ namespace LibraryApp.Controllers
 
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Remove(int Id)
+        [HttpPut]
+        public async Task<IActionResult> Update(int Id,string fullName)
         {
-            return Ok(await (_MemberService.Remove(Id)));
+            return Ok(await (_MemberService.UpdateName(Id,fullName)));
         }
     }
 }

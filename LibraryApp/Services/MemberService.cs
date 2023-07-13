@@ -33,12 +33,25 @@ namespace LibraryApp.Services
         [HttpDelete]
         public async Task<int> Remove(int Id)
         {
-            var member = _db.Members.Where(c => c.Id == Id).FirstOrDefault();
+            var member =await  _db.Members.FirstOrDefaultAsync(c => c.Id == Id);
             if (member != null)
             {
                 _db.Members.Remove(member);
                 return await _db.SaveChangesAsync();
             }
+            return 0;
+        }
+
+        public async Task<int>UpdateName(int Id,string name)
+        {
+            var memberItem=await _db.Members.FirstOrDefaultAsync(m=>m.Id == Id);
+            if(memberItem != null) 
+            {
+                memberItem.FullName=name;
+                return await _db.SaveChangesAsync();    
+
+            }
+
             return 0;
         }
     }
