@@ -2,7 +2,7 @@
 
 namespace LibraryApp.Services
 {
-    public class AddBookVm
+    public class BookVm
     { 
         public string Name { get; set; }
         [Required]

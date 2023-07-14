@@ -22,7 +22,7 @@ namespace LibraryApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddBookVm vm)
+        public IActionResult Add(BookVm vm)
         {
             return Ok(_bookService.Add(vm));
         }
@@ -33,9 +33,9 @@ namespace LibraryApp.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(int Id, string Name)
+        public async Task<IActionResult> Update(int Id, BookVm Vm)
         {
-            return Ok(await (_bookService.UpdateName(Id, Name)));
+            return Ok(await (_bookService.UpdateName(Id, Vm)));
         }
 
     

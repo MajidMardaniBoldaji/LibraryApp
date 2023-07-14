@@ -23,14 +23,14 @@ namespace LibraryApp.Services
         }
 
         [HttpPost]
-        public async Task<int> Add(AddBookVm vm)
+        public async Task<int> Add(BookVm vm)
         {
             var newBook = new Book();
             newBook.Name = vm.Name;
             newBook.Author = vm.Author;
             newBook.Count = vm.Count;
             newBook.BookCategoryId = 1;
-           // newBook.AddDate = DateTime.Now;
+            newBook.AddDate = vm.AddDate;
             _db.Books.Add(newBook);
             return await _db.SaveChangesAsync();
         }
@@ -46,12 +46,16 @@ namespace LibraryApp.Services
             return 0;
         }
 
-        public async Task<int> UpdateName(int Id, string name)
+        public async Task<int> UpdateName(int Id,BookVm book)
         {
             var bookItem = await _db.Books.FirstOrDefaultAsync(m => m.Id == Id);
             if (bookItem != null)
             {
-                bookItem.Name = name;
+                bookItem.Name = book.Name;
+                bookItem.UpdateDate = DateTime.Now; 
+                bookItem.Author=book.Author;    
+                bookItem.Count=book.Count;
+                bookItem.BookCategoryId=book.BookCategoryId;
                 return await _db.SaveChangesAsync();
             }
             return 0;
