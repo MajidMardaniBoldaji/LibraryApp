@@ -60,5 +60,21 @@ namespace LibraryApp.Services
             }
             return 0;
         }
+
+        [HttpPost]
+        public async Task<int> BorrowBook()
+        {
+            var newBorow = new BookBorrow();
+            newBorow.BookId = 1;
+            newBorow.MemberId = 2;
+            newBorow.UserId = 3;    
+            newBorow.BorrowDate = DateTime.Now;
+            newBorow.Description = "...";
+            _db.BookBorrows.Add(newBorow);
+            return await _db.SaveChangesAsync();
+        }
+
+
+
     }
 }

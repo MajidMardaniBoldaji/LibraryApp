@@ -20,7 +20,7 @@ namespace LibraryApp.Controllers
         {
             return  Ok(_bookService.GetAll());
         }
-
+        [Route("AddBook")]
         [HttpPost]
         public IActionResult Add(BookVm vm)
         {
@@ -37,7 +37,12 @@ namespace LibraryApp.Controllers
         {
             return Ok(await (_bookService.UpdateName(Id, Vm)));
         }
+        [Route("BorrowBook")]
+        [HttpPost]
+        public async Task<IActionResult> Borrow()
+        {
+            return Ok(await (_bookService.BorrowBook()));
+        }
 
-    
     }
 }
